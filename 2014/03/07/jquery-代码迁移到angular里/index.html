@@ -1,0 +1,365 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>jquery 代码迁移到angular里 | 郭银锋</title>
+  <meta name="author" content="郭银锋">
+  
+  <meta name="description" content="Web Platform, Cloud and Mobile Application Development">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="jquery 代码迁移到angular里"/>
+  <meta property="og:site_name" content="郭银锋"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <!-- <link href="/favicon.png" rel="icon"> -->
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  
+  <link rel="alternate" href="/atom.xml" title="郭银锋" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">郭银锋</a></h1>
+  <h2><a href="/">Web Platform, Cloud and Mobile Application Development</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-07T07:03:28.000Z"><a href="/2014/03/07/jquery-代码迁移到angular里/">3月 7 2014</a></time>
+      
+      
+  
+    <h1 class="title">jquery 代码迁移到angular里</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>有些功能原来是用jquery写的，如何迁移到angular里<br><a id="more"></a><br>通过之前的学习，知道angular重点放在三个部分：</p>
+<h2 id="controllers">controllers</h2>
+<p>controller暴露了一些model objects，并且提供一些方法供view使用。也就是code都是针对view的，没有放任何对dom的操作</p>
+<h2 id="services">services</h2>
+<p>service提供了和view独立的一些方法，里面的code主要是业务逻辑，一个文件里的代码可能被多个的view使用。这里面有功能包含对dom的操作，例如modal</p>
+<h2 id="directives">directives</h2>
+<p>定义了一些可重用的组件，这些组件用来绑定model到dom上，并且对dom的事件进行相应处理</p>
+<h2 id="jQuery-7684-72b6-51b5-">jQuery的状况</h2>
+<p>jquery的工作方法不太一样，一些功能我们常常使用jquery-ui<br>例如：我们想在页面上使用date picker<br>我们一般会：<br>    $(“#someinput”).datepicker({…})</p>
+<p>对于这个日期控件，我们如果想做一些事件处理，而且不一定只有一个日期控件，例如如果我们要限制结束的日期比开始的日期晚</p>
+<h2 id="jquery-91cc-7684-4ee3-7801-">jquery里的代码</h2>
+<p>html代码</p>
+<pre><code><span class="tag">&lt;<span class="title">div</span>&gt;</span>
+    Date Of Birth:
+    <span class="tag">&lt;<span class="title">input</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">id</span>=<span class="value">"dateOfBirth"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">br</span>&gt;</span>
+    Current user's date of birth:
+    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"dateOfBirthDisplay"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><p>js代码</p>
+<pre><code>$(function () {
+   var user = {
+      dateOfBirth: new Date(<span class="number">1970</span>, <span class="number">0</span>, <span class="number">1</span>)
+   }<span class="comment">;</span>
+
+   var displayValue = function () {
+      $(<span class="string">"#dateOfBirthDisplay"</span>)<span class="preprocessor">.text</span>(new Date(user<span class="preprocessor">.dateOfBirth</span>)<span class="preprocessor">.toDateString</span>())<span class="comment">;</span>
+   }<span class="comment">;</span>
+
+   var processChange = function() {
+      user<span class="preprocessor">.dateOfBirth</span> = $(<span class="string">"#dateOfBirth"</span>)<span class="preprocessor">.datepicker</span>(<span class="string">"getDate"</span>)<span class="comment">;</span>
+      displayValue()<span class="comment">;</span>
+   }<span class="comment">;</span>
+
+   $(<span class="string">"#dateOfBirth"</span>)<span class="preprocessor">.datepicker</span>({
+         inline: true,
+         onClose: processChange,
+         onSelect: processChange
+      }
+   )<span class="comment">;</span>
+
+   displayValue()<span class="comment">;</span>
+
+   // initial display of value <span class="keyword">in</span> input-box
+   $(<span class="string">"#dateOfBirth"</span>)<span class="preprocessor">.datepicker</span>(<span class="string">"setDate"</span>, user<span class="preprocessor">.dateOfBirth</span>)<span class="comment">;</span>
+
+})<span class="comment">;</span>
+</code></pre><p>从上面的代码里我们可以看出，js里混合了各种的职责，dom操作，数据，业务处理<br>如果上面的这段代码，只使用一次还是可以接受的<br>但是如果很多地方会用到，可能会出现重复的code</p>
+<h2 id="-8fc1-79fb-">迁移</h2>
+<p>如何将jquery实现的日期控件迁移到angular里面：</p>
+<h3 id="html_-4ee3-7801-">html 代码</h3>
+<pre><code><span class="tag">&lt;<span class="title">div</span> <span class="attribute">ng-app</span>=<span class="value">"demo"</span> <span class="attribute">ng-controller</span>=<span class="value">"DemoController"</span>&gt;</span>
+    Date Of Birth:
+    <span class="tag">&lt;<span class="title">my-datepicker</span> <span class="attribute">type</span>=<span class="value">"text"</span> <span class="attribute">ng-model</span>=<span class="value">"user.dateOfBirth"</span> /&gt;</span>
+    <span class="tag">&lt;<span class="title">br</span>&gt;</span>
+    Current user's date of birth:
+    <span class="tag">&lt;<span class="title">span</span> <span class="attribute">id</span>=<span class="value">"dateOfBirthDisplay"</span>&gt;</span><span class="tag">&lt;/<span class="title">span</span>&gt;</span>
+<span class="tag">&lt;/<span class="title">div</span>&gt;</span>
+</code></pre><h3 id="js-4ee3-7801-ff0d-controller">js代码－controller</h3>
+<pre><code><span class="function"><span class="keyword">function</span> <span class="title">DemoController</span><span class="params">(<span class="variable">$scope</span>)</span> {</span>
+   <span class="variable">$scope</span>.user = {
+      dateOfBirth: <span class="keyword">new</span> Date(<span class="number">1970</span>, <span class="number">0</span>, <span class="number">1</span>)
+   }
+}
+</code></pre><p>这里面只是定义了一个变量</p>
+<h3 id="-521b-5efa-6307-4ee4-ff08-directive-ff09-">创建指令（directive）</h3>
+<pre><code>angular.module(<span class="string">"demo"</span>, []).directive(<span class="string">'myDatepicker'</span>, <span class="function"><span class="keyword">function</span> <span class="params">(<span class="variable">$parse</span>)</span> {</span>
+   <span class="keyword">return</span> {
+      restrict: <span class="string">"E"</span>,
+      replace: <span class="keyword">true</span>,
+      transclude: <span class="keyword">false</span>,
+      compile: <span class="function"><span class="keyword">function</span> <span class="params">(element, attrs)</span> {</span>
+         <span class="keyword">var</span> modelAccessor = <span class="variable">$parse</span>(attrs.ngModel);
+
+         <span class="keyword">var</span> html = <span class="string">"&lt;input type='text' id='"</span> + attrs.id + <span class="string">"' &gt;"</span> +
+            <span class="string">"&lt;/input&gt;"</span>;
+
+         <span class="keyword">var</span> newElem = $(html);
+         element.replaceWith(newElem);
+
+         <span class="keyword">return</span> <span class="function"><span class="keyword">function</span> <span class="params">(scope, element, attrs, controller)</span> {</span>
+
+            <span class="keyword">var</span> processChange = <span class="function"><span class="keyword">function</span> <span class="params">()</span> {</span>
+               <span class="keyword">var</span> date = <span class="keyword">new</span> Date(element.datepicker(<span class="string">"getDate"</span>));
+
+               scope.<span class="variable">$apply</span>(<span class="function"><span class="keyword">function</span> <span class="params">(scope)</span> {</span>
+                  <span class="comment">// Change bound variable</span>
+                  modelAccessor.assign(scope, date);
+               });
+            };
+
+            element.datepicker({
+               inline: <span class="keyword">true</span>,
+               onClose: processChange,
+               onSelect: processChange
+            });
+
+            scope.<span class="variable">$watch</span>(modelAccessor, <span class="function"><span class="keyword">function</span> <span class="params">(val)</span> {</span>
+               <span class="keyword">var</span> date = <span class="keyword">new</span> Date(val);
+               element.datepicker(<span class="string">"setDate"</span>, date);
+            });
+
+         };
+
+      }
+   };
+});
+</code></pre>
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/jQuery/">jQuery</a>, <a href="/tags/AngularJS/">AngularJS</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a></div>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["tsina","weixin","qzone","tqq","renren"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","weixin","qzone","tqq","renren"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+        
+<div class="prev_next clearfix">
+  
+    <a href="/2014/03/08/angularjs-学习笔记/" class="alignleft prev" title="AngularJS 学习笔记">AngularJS 学习笔记</a>
+  
+  
+    <a href="/2014/03/06/mongoose-promise-学习/" class="alignright next" title="Mongoose Promise 学习">Mongoose Promise 学习</a>
+  
+</div>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <!-- <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://guoyinfeng.info/2014/03/07/jquery-代码迁移到angular里/" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+   -->
+
+  <!-- Duoshuo Comment BEGIN -->
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"gyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- Duoshuo Comment END -->
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:guoyinfeng.info">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Cloud/">Cloud</a><small>4</small></li>
+  
+    <li><a href="/categories/Database/">Database</a><small>3</small></li>
+  
+    <li><a href="/categories/Friends/">Friends</a><small>4</small></li>
+  
+    <li><a href="/categories/HTML5/">HTML5</a><small>2</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>59</small></li>
+  
+    <li><a href="/categories/Other/">Other</a><small>5</small></li>
+  
+    <li><a href="/categories/Salesforce/">Salesforce</a><small>9</small></li>
+  
+    <li><a href="/categories/Style/">Style</a><small>7</small></li>
+  
+    <li><a href="/categories/Web/">Web</a><small>4</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/AngularJS/" style="font-size: 20.00px;">AngularJS</a><a href="/tags/Apex/" style="font-size: 12.86px;">Apex</a><a href="/tags/Bootstrap/" style="font-size: 15.71px;">Bootstrap</a><a href="/tags/CSS/" style="font-size: 15.71px;">CSS</a><a href="/tags/CSS3/" style="font-size: 10.00px;">CSS3</a><a href="/tags/Certification/" style="font-size: 11.43px;">Certification</a><a href="/tags/Compass/" style="font-size: 10.00px;">Compass</a><a href="/tags/Dojo/" style="font-size: 10.00px;">Dojo</a><a href="/tags/Express/" style="font-size: 10.00px;">Express</a><a href="/tags/Golang/" style="font-size: 10.00px;">Golang</a><a href="/tags/Grunt/" style="font-size: 10.00px;">Grunt</a><a href="/tags/Heroku/" style="font-size: 14.29px;">Heroku</a><a href="/tags/JSHint/" style="font-size: 10.00px;">JSHint</a><a href="/tags/LESS/" style="font-size: 10.00px;">LESS</a><a href="/tags/Learning/" style="font-size: 18.57px;">Learning</a><a href="/tags/MongoDB/" style="font-size: 12.86px;">MongoDB</a><a href="/tags/Mongoose/" style="font-size: 11.43px;">Mongoose</a><a href="/tags/MooTools/" style="font-size: 10.00px;">MooTools</a><a href="/tags/Node.js/" style="font-size: 17.14px;">Node.js</a><a href="/tags/Postgres/" style="font-size: 10.00px;">Postgres</a><a href="/tags/SASS/" style="font-size: 11.43px;">SASS</a><a href="/tags/Stylus/" style="font-size: 10.00px;">Stylus</a><a href="/tags/Visualforce/" style="font-size: 12.86px;">Visualforce</a><a href="/tags/YUI/" style="font-size: 10.00px;">YUI</a><a href="/tags/bower/" style="font-size: 10.00px;">bower</a><a href="/tags/jQuery/" style="font-size: 14.29px;">jQuery</a>
+  </div>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第13章/">Javascript系统学习 第13章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第12章/">Javascript系统学习 第12章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第11章/">Javascript系统学习 第11章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第10章/">Javascript系统学习 第10章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第9章/">Javascript系统学习 第9章</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  <iframe 
+	width="100%" 
+	height="600" 
+	class="share_self"  
+	frameborder="0" 
+	scrolling="no" 
+	src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=0&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=3988939492&verifier=76ceba5c&dpc=1"
+	>
+</iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 郭银锋
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>

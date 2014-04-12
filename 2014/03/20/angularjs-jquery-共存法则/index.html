@@ -1,0 +1,338 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>AngularJS jQuery 共存法则 | 郭银锋</title>
+  <meta name="author" content="郭银锋">
+  
+  <meta name="description" content="Web Platform, Cloud and Mobile Application Development">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta property="og:title" content="AngularJS jQuery 共存法则"/>
+  <meta property="og:site_name" content="郭银锋"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  <!-- <link href="/favicon.png" rel="icon"> -->
+  <link href="/favicon.ico" rel="icon" type="image/x-ico">
+  
+  <link rel="alternate" href="/atom.xml" title="郭银锋" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  
+</head>
+
+
+<body>
+  <header id="header" class="inner"><div class="alignleft">
+  <h1><a href="/">郭银锋</a></h1>
+  <h2><a href="/">Web Platform, Cloud and Mobile Application Development</a></h2>
+</div>
+<nav id="main-nav" class="alignright">
+  <ul>
+    
+      <li><a href="/">首页</a></li>
+    
+      <li><a href="/archives">存档</a></li>
+    
+      <li><a href="/atom.xml">RSS</a></li>
+    
+      <li><a href="/about">关于</a></li>
+    
+  </ul>
+  <div class="clearfix"></div>
+</nav>
+<div class="clearfix"></div></header>
+  <div id="content" class="inner">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
+  
+    <div class="gallery">
+  <div class="photoset">
+    
+      <img src="">
+    
+  </div>
+  <div class="control">
+    <div class="prev"></div>
+    <div class="next"></div>
+  </div>
+</div>
+  
+  <div class="post-content">
+    <header>
+      
+        <div class="icon"></div>
+        <time datetime="2014-03-20T06:36:11.000Z"><a href="/2014/03/20/angularjs-jquery-共存法则/">3月 20 2014</a></time>
+      
+      
+  
+    <h1 class="title">AngularJS jQuery 共存法则</h1>
+  
+
+    </header>
+    <div class="entry">
+      
+        <p>寻找正确的方法，如何在AngularJS里使用jQuery<br><a id="more"></a></p>
+<h1 id="-4e00-3001-4e3a-4ec0-4e48-8fd8-662f-8981-4f7f-7528-jquery">一、为什么还是要使用jquery</h1>
+<p>在使用Angular一段时间后，发现还是很难逃脱jquery 插件的魔掌。尽管对于angular，内置了jQLite.<br>但是为了更好的实现功能，不可避免的要使用一些jquery的插件。</p>
+<h1 id="-4e8c-3001-5982-4f55-5728-Angular-91cc-4f7f-7528-jquery">二、如何在Angular里使用jquery</h1>
+<h2 id="1-_-5982-679c-4f7f-7528-jquery-7684-63d2-4ef6-ff0c-6211-4eec-4e0d-5e94-8be5-628a-5bf9-5e94-7684-code-653e-5230-controller-91cc-9762-3002-6211-4eec-5e94-8be5-521b-5efa-directive-ff0c-7136-540e-901a-5e38-628a-jquery-7684-code-653e-5728-_link-91cc-9762-">1. 如果使用jquery的插件，我们不应该把对应的code放到controller里面。我们应该创建directive，然后通常把jquery的code放在 link里面</h2>
+<h2 id="2-_-5f53-6211-4eec-5f15-5165-jquery_-63d2-4ef6-5e93-7684-65f6-5019-ff0c-6211-4eec-8981-4fdd-8bc1-662f-5728-6700-540e-5012-5165-7684-ff0c-5728-angularjs-ff0c-controllers-ff0c-services-ff0c-filters-7ed3-675f-540e-5f15-5165-">2. 当我们引入jquery 插件库的时候，我们要保证是在最后倒入的，在angularjs，controllers，services，filters结束后引入</h2>
+<h1 id="-4e09-3001-5b9e-8df5-3c-a_href-3d-22-http-3a-2f-2f-plnkr-co-2f-edit-2f-Z2IQX8s9UK6wQ1hS4asz-3f-p-3d-preview-22-3e-Plunker-3c-2f-a-3e-">三、实践<a href="http://plnkr.co/edit/Z2IQX8s9UK6wQ1hS4asz?p=preview" target="_blank">Plunker</a></h1>
+<p>如何在angular里使用jcrop<br>HTML</p>
+<pre><code><span class="doctype">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;<span class="title">html</span> <span class="attribute">ng-app</span>=<span class="value">"angularjs-starter"</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="title">head</span> <span class="attribute">lang</span>=<span class="value">"en"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">meta</span> <span class="attribute">charset</span>=<span class="value">"utf-8"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">title</span>&gt;</span>Custom Plunker<span class="tag">&lt;/<span class="title">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"//ajax.googleapis.com/ajax/libs/angularjs/1.0.3/angular.min.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"//deepliquid.com/projects/Jcrop/js/jquery.min.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"//deepliquid.com/projects/Jcrop/js/jquery.Jcrop.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">link</span> <span class="attribute">rel</span>=<span class="value">"stylesheet"</span> <span class="attribute">href</span>=<span class="value">"style.css"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span>&gt;</span><span class="javascript">
+      document.write(<span class="string">'&lt;base href="'</span> + document.location + <span class="string">'" /&gt;'</span>);
+    </span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">script</span> <span class="attribute">src</span>=<span class="value">"app.js"</span>&gt;</span><span class="javascript"></span><span class="tag">&lt;/<span class="title">script</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">head</span>&gt;</span>
+
+  <span class="tag">&lt;<span class="title">body</span> <span class="attribute">ng-controller</span>=<span class="value">"MainCtrl"</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">h1</span>&gt;</span>Hello <span class="tag">&lt;/<span class="title">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">'img = "http://deepliquid.com/Jcrop/demos/demo_files/pool.jpg"'</span>&gt;</span>Orig<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+    <span class="tag">&lt;<span class="title">button</span> <span class="attribute">ng-click</span>=<span class="value">'img = "http://api.ning.com/files/ZC4177QOYrNFCalnvSMuQhhDHuDSN983R6Cu41iPxpbyxGhX*8BhXoXmBEcGH-zUvSNHnUxlcEJA0BZdf9ch8Q10kP8-BszV/daisy0.jpg"'</span>&gt;</span>Kitten<span class="tag">&lt;/<span class="title">button</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="title">img-cropped</span> <span class="attribute">src</span>=<span class="value">''</span> <span class="attribute">selected</span>=<span class="value">'selected(cords)'</span>&gt;</span>
+  <span class="tag">&lt;/<span class="title">body</span>&gt;</span>
+
+<span class="tag">&lt;/<span class="title">html</span>&gt;</span>
+</code></pre><p>JS</p>
+<pre><code>var app = <span class="transposed_variable">angular.</span>module(<span class="string">'angularjs-starter'</span>, <span class="matrix">[]</span>);
+
+<span class="transposed_variable">app.</span>controller(<span class="string">'MainCtrl'</span>, <span class="function"><span class="keyword">function</span><span class="params">($scope)</span> {</span>
+  $<span class="transposed_variable">scope.</span>name = <span class="string">'World'</span>;  
+  $<span class="transposed_variable">scope.</span>selected = <span class="function"><span class="keyword">function</span><span class="params">(x)</span> {</span>
+    <span class="transposed_variable">console.</span>log(<span class="string">"selected"</span>,x);
+  };
+});
+
+<span class="transposed_variable">app.</span>directive(<span class="string">'imgCropped'</span>, <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+  <span class="keyword">return</span> {
+    restrict: <span class="string">'E'</span>,
+    replace: true,
+    scope: { src:<span class="string">'@'</span>, selected:<span class="string">'&amp;'</span> },
+    link: <span class="function"><span class="keyword">function</span><span class="params">(scope,element, attr)</span> {</span>
+      var myImg;
+      var <span class="keyword">clear</span> = <span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+        <span class="keyword">if</span> (myImg) {
+          <span class="transposed_variable">myImg.</span>next().remove();
+          <span class="transposed_variable">myImg.</span>remove();
+          myImg = undefined;
+        }
+      };
+      <span class="transposed_variable">scope.</span>$watch(<span class="string">'src'</span>, <span class="function"><span class="keyword">function</span><span class="params">(nv)</span> {        </span>
+        <span class="keyword">clear</span>();
+        <span class="keyword">if</span> (nv) {
+          <span class="transposed_variable">element.</span>after(<span class="string">'&lt;img /&gt;'</span>);
+          myImg = <span class="transposed_variable">element.</span>next();        
+          <span class="transposed_variable">myImg.</span>attr(<span class="string">'src'</span>,nv);
+          $(myImg).Jcrop({
+            trackDocument: true,  
+            onSelect: <span class="function"><span class="keyword">function</span><span class="params">(x)</span> {              </span>
+              <span class="transposed_variable">scope.</span>$apply(<span class="function"><span class="keyword">function</span><span class="params">()</span> {</span>
+                <span class="transposed_variable">scope.</span>selected({cords: x});
+              });
+            }
+          });
+        }
+      });
+
+      <span class="transposed_variable">scope.</span>$on(<span class="string">'$destroy'</span>, <span class="keyword">clear</span>);
+    }
+  };
+});
+</code></pre><h1 id="-3c-em-3e-53c2-8003-3c-2f-em-3e-"><em>参考</em></h1>
+<p><a href="http://stackoverflow.com/questions/16935095/correct-way-to-integrate-jquery-plugins-in-angular-js" target="_blank">Correct way to integrate Jquery plugins in Angular.js</a><br><a href="http://amitgharat.wordpress.com/2013/02/03/an-approach-to-use-jquery-plugins-with-angularjs/" target="_blank">An approach to use jQuery Plugins with AngularJS</a><br><a href="http://iarouse.com/blog/2013/11/14/use-jquery-plugin-with-angularjs-the-easy-lazy-way/" target="_blank">Use jQuery Plugin With AngularJS the Easy (Lazy) Way</a></p>
+
+      
+    </div>
+    <footer>
+      
+        
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
+        
+  
+  <div class="tags">
+    <a href="/tags/jQuery/">jQuery</a>, <a href="/tags/AngularJS/">AngularJS</a>
+  </div>
+
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a></div>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["tsina","weixin","qzone","tqq","renren"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","weixin","qzone","tqq","renren"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
+        
+<div class="prev_next clearfix">
+  
+    <a href="/2014/03/20/html5-boilerplate-学习/" class="alignleft prev" title="HTML5 Boilerplate 学习">HTML5 Boilerplate 学习</a>
+  
+  
+    <a href="/2014/03/20/grunt-使用指南/" class="alignright next" title="Grunt 使用指南">Grunt 使用指南</a>
+  
+</div>
+
+      
+      <div class="clearfix"></div>
+    </footer>
+  </div>
+</article>
+
+
+<section id="comment">
+  <!-- <h1 class="title">留言</h1>
+
+  
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://guoyinfeng.info/2014/03/20/angularjs-jquery-共存法则/" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+   -->
+
+  <!-- Duoshuo Comment BEGIN -->
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"gyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- Duoshuo Comment END -->
+</section>
+</div></div>
+    <aside id="sidebar" class="alignright">
+  <div class="search">
+  <form action="//google.com/search" method="get" accept-charset="utf-8">
+    <input type="search" name="q" results="0" placeholder="搜索">
+    <input type="hidden" name="q" value="site:guoyinfeng.info">
+  </form>
+</div>
+
+  
+<div class="widget tag">
+  <h3 class="title">分类</h3>
+  <ul class="entry">
+  
+    <li><a href="/categories/Cloud/">Cloud</a><small>4</small></li>
+  
+    <li><a href="/categories/Database/">Database</a><small>3</small></li>
+  
+    <li><a href="/categories/Friends/">Friends</a><small>4</small></li>
+  
+    <li><a href="/categories/HTML5/">HTML5</a><small>2</small></li>
+  
+    <li><a href="/categories/Javascript/">Javascript</a><small>59</small></li>
+  
+    <li><a href="/categories/Other/">Other</a><small>5</small></li>
+  
+    <li><a href="/categories/Salesforce/">Salesforce</a><small>9</small></li>
+  
+    <li><a href="/categories/Style/">Style</a><small>7</small></li>
+  
+    <li><a href="/categories/Web/">Web</a><small>4</small></li>
+  
+  </ul>
+</div>
+
+
+  
+<div class="widget tagcloud">
+  <h3 class="title">标签云</h3>
+  <div class="entry">
+    <a href="/tags/AngularJS/" style="font-size: 20.00px;">AngularJS</a><a href="/tags/Apex/" style="font-size: 12.86px;">Apex</a><a href="/tags/Bootstrap/" style="font-size: 15.71px;">Bootstrap</a><a href="/tags/CSS/" style="font-size: 15.71px;">CSS</a><a href="/tags/CSS3/" style="font-size: 10.00px;">CSS3</a><a href="/tags/Certification/" style="font-size: 11.43px;">Certification</a><a href="/tags/Compass/" style="font-size: 10.00px;">Compass</a><a href="/tags/Dojo/" style="font-size: 10.00px;">Dojo</a><a href="/tags/Express/" style="font-size: 10.00px;">Express</a><a href="/tags/Golang/" style="font-size: 10.00px;">Golang</a><a href="/tags/Grunt/" style="font-size: 10.00px;">Grunt</a><a href="/tags/Heroku/" style="font-size: 14.29px;">Heroku</a><a href="/tags/JSHint/" style="font-size: 10.00px;">JSHint</a><a href="/tags/LESS/" style="font-size: 10.00px;">LESS</a><a href="/tags/Learning/" style="font-size: 18.57px;">Learning</a><a href="/tags/MongoDB/" style="font-size: 12.86px;">MongoDB</a><a href="/tags/Mongoose/" style="font-size: 11.43px;">Mongoose</a><a href="/tags/MooTools/" style="font-size: 10.00px;">MooTools</a><a href="/tags/Node.js/" style="font-size: 17.14px;">Node.js</a><a href="/tags/Postgres/" style="font-size: 10.00px;">Postgres</a><a href="/tags/SASS/" style="font-size: 11.43px;">SASS</a><a href="/tags/Stylus/" style="font-size: 10.00px;">Stylus</a><a href="/tags/Visualforce/" style="font-size: 12.86px;">Visualforce</a><a href="/tags/YUI/" style="font-size: 10.00px;">YUI</a><a href="/tags/bower/" style="font-size: 10.00px;">bower</a><a href="/tags/jQuery/" style="font-size: 14.29px;">jQuery</a>
+  </div>
+</div>
+
+
+  
+<div class="widget tag">
+  <h3 class="title">最新文章</h3>
+  <ul class="entry">
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第13章/">Javascript系统学习 第13章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第12章/">Javascript系统学习 第12章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第11章/">Javascript系统学习 第11章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第10章/">Javascript系统学习 第10章</a>
+      </li>
+    
+      <li>
+        <a href="/2014/04/12/javascript系统学习-第9章/">Javascript系统学习 第9章</a>
+      </li>
+    
+  </ul>
+</div>
+
+
+  <iframe 
+	width="100%" 
+	height="600" 
+	class="share_self"  
+	frameborder="0" 
+	scrolling="no" 
+	src="http://widget.weibo.com/weiboshow/index.php?language=&width=0&height=550&fansRow=2&ptype=0&speed=0&skin=5&isTitle=1&noborder=1&isWeibo=1&isFans=0&uid=3988939492&verifier=76ceba5c&dpc=1"
+	>
+</iframe>
+</aside>
+    <div class="clearfix"></div>
+  </div>
+  <footer id="footer" class="inner"><div class="alignleft">
+  
+  &copy; 2014 郭银锋
+  
+</div>
+<div class="clearfix"></div></footer>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+
+
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+</body>
+</html>
