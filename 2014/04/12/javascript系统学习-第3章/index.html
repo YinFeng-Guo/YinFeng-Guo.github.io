@@ -89,11 +89,11 @@
 <ul>
 <li>在顶部添加如下代码：<br>  “use strict”;</li>
 <li><p>在函数内部的上方包含</p>
-<p>  function doSomething(){</p>
-<pre><code>  "use <span class="value">strict</span>";
-  <span class="comment">//函数体</span>
-</code></pre><p>  }</p>
-</li>
+<pre><code>  <span class="function"><span class="keyword">function</span> <span class="title">doSomething</span><span class="params">()</span>{</span>
+      <span class="string">"use strict"</span>;
+      <span class="comment">//函数体</span>
+  }
+</code></pre></li>
 </ul>
 <p>“use strict”看起来像是字符串，而且也没有赋值给任何变量，启示它是一个编译指示（pragma）<br>不过直接加上上面的代码，帮助不是很大，我们还需要插件配合使用，我知道比较好用的是<a href="http://www.jshint.com/" target="_blank">JSHint</a><br>还有一种叫做<a href="http://jslint.com/" target="_blank">JSLint</a></p>
 <h3 id="1-5_-8bed-53e5-">1.5 语句</h3>
