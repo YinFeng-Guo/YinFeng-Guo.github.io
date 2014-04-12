@@ -87,7 +87,9 @@
 <h3 id="1-4_-4e25-683c-6a21-5f0f-">1.4 严格模式</h3>
 <p>javasript是一种解释型的语言，所以很多错误只有只运行的时候才会提示。<br>比如少了引号，少了括号这种很简单的错误。<br>所以如果也可以像编译型的语言，能够在保存后就能提示我们错误，对开发帮助会很大。<br>在ECMAScript 5引入了严格模式(strict mode)，可以帮我们解决这个问题。<br>使用方式有两种：</p>
 <ul>
-<li>在顶部添加如下代码：<br>  “use strict”;</li>
+<li><p>在顶部添加如下代码：</p>
+<pre><code>  <span class="string">"use strict"</span><span class="comment">;</span>
+</code></pre></li>
 <li><p>在函数内部的上方包含</p>
 <pre><code>  <span class="function"><span class="keyword">function</span> <span class="title">doSomething</span><span class="params">()</span>{</span>
       <span class="string">"use strict"</span>;
@@ -102,13 +104,18 @@
 <ul>
 <li>可读性强</li>
 <li>避免错误，例如不完整的输入</li>
-<li>省略分号，会由解释器确定语句的结尾。加上分号后，解释器就不必再花实践推测应该在哪里插入分号了。<h4 id="1-5-2_-82b1-62ec-53f7-">1.5.2 花括号</h4>
-最佳实践：始终在控制语句中使用代码块（代码块以花括号开头，以花括号结尾）。<br>使用了花括号，可以让编码意图更加清晰，而且也能降低修改代码时出错的机率。<h2 id="-4e8c-3001-5173-952e-5b57-548c-4fdd-7559-5b57-">二、关键字和保留字</h2>
-只要记住不要使用关键字和保留字作为标示符就可以，避开。<br>如果遇到错误”Identifier Expected”，考虑下是不是使用了关键字或保留字。<h2 id="-4e09-3001-53d8-91cf-">三、变量</h2>
-<h4 id="3-1_-4f7f-7528-">3.1 使用</h4>
-松散类型或类型，定义使用关键字var<h4 id="3-2_-53d8-91cf-4f5c-7528-57df-">3.2 变量作用域</h4>
-用var定义的变量会有作用域。<br>比如在函数里定义的变量，函数运行结束后，变量即被销毁。</li>
+<li>没有分号，会导致代码压缩的时候报错</li>
+<li>省略分号，会由解释器确定语句的结尾。加上分号后，解释器就不必再花实践推测应该在哪里插入分号了。</li>
 </ul>
+<h4 id="1-5-2_-82b1-62ec-53f7-">1.5.2 花括号</h4>
+<p>最佳实践：始终在控制语句中使用代码块（代码块以花括号开头，以花括号结尾）。<br>使用了花括号，可以让编码意图更加清晰，而且也能降低修改代码时出错的机率。</p>
+<h2 id="-4e8c-3001-5173-952e-5b57-548c-4fdd-7559-5b57-">二、关键字和保留字</h2>
+<p>只要记住不要使用关键字和保留字作为标示符就可以，避开。<br>如果遇到错误”Identifier Expected”，考虑下是不是使用了关键字或保留字。</p>
+<h2 id="-4e09-3001-53d8-91cf-">三、变量</h2>
+<h4 id="3-1_-4f7f-7528-">3.1 使用</h4>
+<p>松散类型或类型，定义使用关键字var</p>
+<h4 id="3-2_-53d8-91cf-4f5c-7528-57df-">3.2 变量作用域</h4>
+<p>用var定义的变量会有作用域。<br>比如在函数里定义的变量，函数运行结束后，变量即被销毁。<br>入股省略了var，创建的就是一个全局变量，即使在函数中定义的，函数外部也能访问。<br>不过不推荐省略var，这样不好维护代码，容易造成混乱。</p>
 
       
     </div>
@@ -201,7 +208,7 @@
   
     <li><a href="/categories/HTML5/">HTML5</a><small>2</small></li>
   
-    <li><a href="/categories/Javascript/">Javascript</a><small>59</small></li>
+    <li><a href="/categories/Javascript/">Javascript</a><small>60</small></li>
   
     <li><a href="/categories/Other/">Other</a><small>5</small></li>
   
@@ -230,6 +237,10 @@
   <ul class="entry">
     
       <li>
+        <a href="/2014/04/12/javascript-严格模式清单/">Javascript 严格模式清单</a>
+      </li>
+    
+      <li>
         <a href="/2014/04/12/javascript系统学习-第13章/">Javascript系统学习 第13章</a>
       </li>
     
@@ -243,10 +254,6 @@
     
       <li>
         <a href="/2014/04/12/javascript系统学习-第10章/">Javascript系统学习 第10章</a>
-      </li>
-    
-      <li>
-        <a href="/2014/04/12/javascript系统学习-第9章/">Javascript系统学习 第9章</a>
       </li>
     
   </ul>

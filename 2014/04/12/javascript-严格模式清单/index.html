@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Golang | 郭银锋</title>
+  <title>Javascript 严格模式清单 | 郭银锋</title>
   <meta name="author" content="郭银锋">
   
   <meta name="description" content="Web Platform, Cloud and Mobile Application Development">
@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="Javascript 严格模式清单"/>
   <meta property="og:site_name" content="郭银锋"/>
 
   
@@ -49,12 +49,7 @@
 </nav>
 <div class="clearfix"></div></header>
   <div id="content" class="inner">
-    <div id="main-col" class="alignleft"><div id="wrapper">
-<h2 class="archive-title tag">Golang</h2>
-
-
-  
-    <article class="post">
+    <div id="main-col" class="alignleft"><div id="wrapper"><article class="post">
   
     <div class="gallery">
   <div class="photoset">
@@ -72,27 +67,43 @@
     <header>
       
         <div class="icon"></div>
-        <time datetime="2014-04-05T06:41:42.000Z"><a href="/2014/04/05/golang/">4月 5 2014</a></time>
+        <time datetime="2014-04-12T03:32:36.000Z"><a href="/2014/04/12/javascript-严格模式清单/">4月 12 2014</a></time>
       
       
   
-    <h1 class="title"><a href="/2014/04/05/golang/">Golang</a></h1>
+    <h1 class="title">Javascript 严格模式清单</h1>
   
 
     </header>
     <div class="entry">
       
-        <p>遇见次数多了，觉得是一个蛮受欢迎的语言，做个mark，有空研究<br>
+        <p>收集汇总有哪些在严格模式下会出错<br><a id="more"></a></p>
+<h3 id="eval_-548c-_arguments">eval 和 arguments</h3>
+<p>这两个名字不能作为标示符或者属性名</p>
+<h3 id="-53d8-91cf-6ca1-58f0-660e-">变量没声明</h3>
+<p>抛出ReferenceError错误</p>
+
       
     </div>
     <footer>
       
         
-          <div class="alignleft">
-            <a href="/2014/04/05/golang/#more" class="more-link">阅读全文</a>
-          </div>
+  
+  <div class="categories">
+    <a href="/categories/Javascript/">Javascript</a>
+  </div>
+
         
+        <div class="bdsharebuttonbox"><a href="#" class="bds_more" data-cmd="more"></a><a title="分享到新浪微博" href="#" class="bds_tsina" data-cmd="tsina"></a><a title="分享到微信" href="#" class="bds_weixin" data-cmd="weixin"></a><a title="分享到QQ空间" href="#" class="bds_qzone" data-cmd="qzone"></a><a title="分享到腾讯微博" href="#" class="bds_tqq" data-cmd="tqq"></a><a title="分享到人人网" href="#" class="bds_renren" data-cmd="renren"></a></div>
+        <script>window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{},"image":{"viewList":["tsina","weixin","qzone","tqq","renren"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["tsina","weixin","qzone","tqq","renren"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];</script>
         
+<div class="prev_next clearfix">
+  
+  
+    <a href="/2014/04/12/javascript系统学习-第13章/" class="alignright next" title="Javascript系统学习 第13章">Javascript系统学习 第13章</a>
+  
+</div>
+
       
       <div class="clearfix"></div>
     </footer>
@@ -100,13 +111,40 @@
 </article>
 
 
-  
+<section id="comment">
+  <!-- <h1 class="title">留言</h1>
 
-  <nav id="pagination">
   
-  
-  <div class="clearfix"></div>
-</nav>
+      <div id="fb-root"></div>
+<script>
+  (function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=123456789012345";
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+
+<div class="fb-comments" data-href="http://guoyinfeng.info/2014/04/12/javascript-严格模式清单/" data-num-posts="5" data-width="840" data-colorscheme="light"></div>
+      
+   -->
+
+  <!-- Duoshuo Comment BEGIN -->
+  <div class="ds-thread"></div>
+  <script type="text/javascript">
+  var duoshuoQuery = {short_name:"gyf"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.src = 'http://static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0] 
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+  <!-- Duoshuo Comment END -->
+</section>
 </div></div>
     <aside id="sidebar" class="alignright">
   <div class="search">
