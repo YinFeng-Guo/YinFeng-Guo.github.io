@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Web Platform, Cloud and Mobile Application Development]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://guoyinfeng.info/"/>
-  <updated>2014-04-12T03:03:40.842Z</updated>
+  <updated>2014-04-12T03:04:57.304Z</updated>
   <id>http://guoyinfeng.info/</id>
   
   <author>
@@ -169,7 +169,7 @@
     <link href="http://guoyinfeng.info/2014/04/12/javascript%E7%B3%BB%E7%BB%9F%E5%AD%A6%E4%B9%A0-%E7%AC%AC3%E7%AB%A0/"/>
     <id>http://guoyinfeng.info/2014/04/12/javascript系统学习-第3章/</id>
     <published>2014-04-11T23:44:25.000Z</published>
-    <updated>2014-04-12T03:03:31.000Z</updated>
+    <updated>2014-04-12T03:04:47.000Z</updated>
     <content type="html"><![CDATA[<p>像学英语一样，学习javascript也需要学习单词和语法。<br><a id="more"></a></p>
 <h2 id="-4e00-3001-8bed-6cd5-">一、语法</h2>
 <h3 id="1-1_-533a-5206-5927-5c0f-5199-">1.1 区分大小写</h3>
@@ -181,9 +181,12 @@
 <p>javasript是一种解释型的语言，所以很多错误只有只运行的时候才会提示。<br>比如少了引号，少了括号这种很简单的错误。<br>所以如果也可以像编译型的语言，能够在保存后就能提示我们错误，对开发帮助会很大。<br>在ECMAScript 5引入了严格模式(strict mode)，可以帮我们解决这个问题。<br>使用方式有两种：</p>
 <ul>
 <li>在顶部添加如下代码：<br>  “use strict”;</li>
-<li>在函数内部的上方包含<br>  function doSomething(){<pre><code>  "use <span class="value">strict</span>";
+<li><p>在函数内部的上方包含</p>
+<p>  function doSomething(){</p>
+<pre><code>  "use <span class="value">strict</span>";
   <span class="comment">//函数体</span>
-</code></pre>  }</li>
+</code></pre><p>  }</p>
+</li>
 </ul>
 <p>“use strict”看起来像是字符串，而且也没有赋值给任何变量，启示它是一个编译指示（pragma）<br>不过直接加上上面的代码，帮助不是很大，我们还需要插件配合使用，我知道比较好用的是<a href="http://www.jshint.com/" target="_blank">JSHint</a><br>还有一种叫做<a href="http://jslint.com/" target="_blank">JSLint</a></p>
 ]]></content>
